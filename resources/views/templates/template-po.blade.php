@@ -285,6 +285,19 @@
       });
     });
 
+    $("#kategori_name").on('change', function(){
+        const kategori = $("#kategori_name").val();
+        $.ajax({
+          type: 'get',
+          dataType: 'html',
+          url: '{{url('/po/kategori')}}',
+          data: 'kategori_id=' + kategori,
+          success:function(response){
+            $("#barang").html(response);
+          }
+        });
+      });
+
     });
   </script>
   @yield('footer')

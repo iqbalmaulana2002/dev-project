@@ -7,6 +7,8 @@ use App\Kategori;
 use App\Barang;
 use App\User;
 use App\Role;
+use File;
+use Mail;
 use Illuminate\Http\Request;
 // use App\Http\Controllers\Controller;
 
@@ -45,9 +47,9 @@ class pinjamController extends Controller
     public function store(Request $request)
     {
         // dd($request->id_barang);
-        $request->validate([
-            'keterangan' => 'required'
-        ]);
+        // $request->validate([
+        //     'keterangan' => 'required'
+        // ]);
 
         Pinjam::create([
             'id_barang' => $request->id_barang,
@@ -58,7 +60,7 @@ class pinjamController extends Controller
             'jumlah_pinjam' => 1,
             'tgl_pinjam' => date("Y-m-d"),
             'status' => 'Pending',
-            'keterangan' => $request->keterangan
+            'keterangan' => 'Saya meminjam barang ini untuk memudahkan saya dalam bekerja'
         ]);
         return redirect('/invetaris')->with('status', 'Data Berhasil Di Tambah!!!');
     }
@@ -130,5 +132,24 @@ class pinjamController extends Controller
         // }
         $pinjam = Pinjam::where('tgl_pinjam', '>=', $request->Awal)->where('tgl_pinjam', '<=', $request->Akhir)->orderBy('tgl_pinjam', 'desc')->get();
         return view('admin.Admin_invetaris.filter', compact('pinjam'));
+    }
+
+    public function Email(Request $request, $id)
+    {
+        $admin = Role::where('role', 'Admin')->first();
+        $emailAdmin = User::where('id_role', $admin->id)->first()->email;
+        $emailUser = $id->email;
+
+        $data = [
+           'emailAdmin' => $emailAdmin,
+           'emailUser' => $emailUser 
+        ];
+        Mail::send('admin/Admin_invetaris/email', $data, function ($message) use($emailUser){
+            $message->from('naufalnurhidayat510@gmail.com', 'Aplikasi Telkom');
+            $message->to($emailUser);
+            $message->subject('Aktivasi akun oleh Admin');
+        });
+
+        return redirect('/admin/pinjam')->with('status', 'Pesan sudah terkirim');
     }
 }

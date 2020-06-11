@@ -24,6 +24,7 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 			Route::patch('/admin/profile/edit/{id}', 'Admin\ProfileController@update');
 		  // Master
 			//inventaris
+			Route::get('/admin/peminjaman/aktivasi/{id}', 'PinjamController@Email');
 			Route::get('/admin/transaksi-filter', 'PinjamController@periode');
 			Route::get('/admin/transaksi-filter/kembali', 'kembaliController@periode');
 			Route::get('/admin/barang/exportpdf', 'databoxController@exportPdf');
@@ -155,14 +156,16 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 			Route::patch('/sm/kembali/status/{kembali}', 'SM\kembaliController@update');
 	
 			//Invetaris
+			Route::get('/sm/kategori', 'SM\barangController@filter');
 			Route::get('/sm/invetaris', 'SM\barangController@index');
 			Route::post('/sm/kembali/store', 'SM\kembaliController@store');
 			Route::get('/pinjam/create/{id_barang}', 'pinjamController@create');
 			Route::get('/barang', 'barangController@index');
 			Route::get('/show/{id_pinjam}', 'barangController@show');
 			Route::get('/sm/tampil/table', 'SM\barangController@tampil');
-			Route::post('/sm/pengajuan/store', 'SM\PinjamController@store');
+			Route::post('/sm/pengajuan/store/{id_barang}', 'SM\PinjamController@store');
 			Route::post('/pengajuan/pinjam/{id_karyawan}', 'barangController@store');
+			Route::delete('/sm/user/destroy/{id_pinjam}', 'SM\barangController@hapus');
 		
 			// Karyawan
 			Route::get('/sm/karyawan', 'SM\KaryawanController@index');
@@ -226,13 +229,14 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 			Route::patch('/po/status/{pinjam}', 'PO\PinjamController@update');
 			Route::patch('/po/kembali/status/{kembali}', 'PO\kembaliController@update');
 			//Invetaris
+			Route::get('/po/kategori', 'PO\barangController@filter');
 			Route::get('/po/invetaris', 'PO\barangController@index');
 			Route::post('/kembali/store', 'kembaliController@store');
 			Route::get('/pinjam/create/{id_barang}', 'pinjamController@create');
 			Route::get('/barang', 'barangController@index');
 			Route::get('/show/{id_pinjam}', 'barangController@show');
 			Route::get('/po/tampil/table', 'PO\barangController@tampil');
-			Route::post('po/pengajuan/store', 'PO\PinjamController@store');
+			Route::post('/po/pengajuan/store/{id_barang}', 'PO\PinjamController@store');
 			Route::post('/pengajuan/pinjam/{id_karyawan}', 'barangController@store');
 			Route::get('/kategori', 'barangController@cobajax');
 			Route::get('/po/barang/exportpdf/{id}', 'PO\barangController@exportPdf');
@@ -291,7 +295,7 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 			Route::get('/barang', 'barangController@index');
 			Route::get('/show/{id_pinjam}', 'barangController@show');
 			Route::get('/tampil/table', 'barangController@tampil');
-			Route::post('/pengajuan/store', 'PinjamController@store');
+			Route::post('/pengajuan/store/{id_barang}', 'PinjamController@store');
 			Route::post('/pengajuan/pinjam/{id_karyawan}', 'barangController@store');
 			Route::get('/kategori', 'barangController@cobajax');
 			Route::get('/user/barang/exportpdf/{id}', 'barangController@exportPdf');

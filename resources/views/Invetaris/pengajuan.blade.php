@@ -20,7 +20,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Categori</label>
         </div>
-        <select class="custom-select" name="kategori" id="kategori">
+        <select class="custom-select" name="kategori" id="kategori_name">
           <option selected value="">Choose Kategori</option>
           @foreach ($kategori as $item)
           <option value={{$item->id_kategori}}>{{$item->nama_kategori}}</option>
@@ -56,13 +56,18 @@
            <td>{{$b->Kategori['nama_kategori']}}</td>
            <td>{{$b->kondisi}}</td>
            <td>
-           <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pinjam_{{$b->id_barang}}"><i class=""></i> Pinjam</a>
+            <form action="{{ url('/pengajuan/store') }}/{{$b->id_barang}}" method="POST">
+              @csrf
+              <input type="hidden" name="id_kategori" value="{{$b->Kategori['id_kategori']}}">
+              <button class="btn btn-primary btn-sm" type="submit" name="pinjam">Pinjam</button>
+            </form>
+           {{-- <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pinjam_{{$b->id_barang}}"><i class=""></i> Pinjam</a> --}}
       </div>
     </div>
   </div>
 
   {{-- @foreach($barang as $box) --}}
-  <div class="modal fade" id="pinjam_{{$b->id_barang}}" tabindex="-1" role="dialog" aria-labelledby="pinjam" aria-hidden="true">
+  {{-- <div class="modal fade" id="pinjam_{{$b->id_barang}}" tabindex="-1" role="dialog" aria-labelledby="pinjam" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -71,7 +76,7 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        {{-- Form Input --}}
+        
         <div class="container">
           <div class="row justify-content-center">
             <div class="col">
@@ -81,7 +86,7 @@
                 
               <input type="hidden" name="id_barang" value="{{$b->id_barang}}"> 
               <input type="hidden" name="id_kategori" value="{{$b->Kategori['id_kategori']}}">
-              {{-- <input type="hidden" name="id_kembali" value="{{$b->Kembali['id_kembali']}}"> --}}
+              
             
                 <div class="form-group">
                   <label for="keterangan">Keterangan </label>
@@ -100,7 +105,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 </td>
 </tr>
 @endif

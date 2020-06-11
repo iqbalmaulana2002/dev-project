@@ -132,4 +132,13 @@ class barangController extends Controller
         return $pdf->stream('Data Absensi');
     }
 
+    public function filter(Request $request)
+    {
+        if (empty($request->kategori_id)) {
+            $barang = Barang::orderBy('nama_barang', 'desc')->get();
+            } else {
+            $barang = Barang::where('id_kategori', $request->kategori_id)->get();
+            }
+            return view('/po/Invetaris/filter', compact('barang'));
+    }
 }

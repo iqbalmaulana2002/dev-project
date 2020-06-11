@@ -120,4 +120,19 @@ class barangController extends Controller
         return view('sm.Invetaris.pengajuan', ['barang' => $barang, 'kategori' => $kategori]);
     }
 
+    public function hapus($id)
+    {
+        $pinjam = Pinjam::where('id_pinjam', $id)->delete();
+        return redirect('/sm/invetaris')->with('status', 'Data Berhasil di Hapus!!!!');
+    }
+
+    public function filter(Request $request)
+    {
+        if (empty($request->kategori_id)) {
+            $barang = Barang::orderBy('nama_barang', 'desc')->get();
+            } else {
+            $barang = Barang::where('id_kategori', $request->kategori_id)->get();
+            }
+            return view('/sm/Invetaris/filter', compact('barang'));
+    }
 }
