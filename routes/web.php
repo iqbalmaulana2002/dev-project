@@ -118,7 +118,6 @@ Route::group(['middleware' => ['checkIsActive', 'auth']], function () {
 			Route::get('/admin/cuti', 'Admin\CutiController@index');
 			Route::get('/admin/cuti/filter', 'Admin\CutiController@filterData');
 			Route::get('/admin/cuti/{cuti}', 'Admin\CutiController@detailCuti');
-			Route::get('/admin/cuti', 'Admin\CutiController@editJatahCuti');
 			Route::patch('/admin/cuti/reset/jatah_cuti', 'Admin\CutiController@updateJatahCuti');
 			Route::patch('/admin/cuti/{cuti}', 'Admin\CutiController@update');
 			Route::delete('/admin/cuti/{cuti}', 'Admin\CutiController@destroy');

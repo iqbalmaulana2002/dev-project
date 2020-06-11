@@ -80,6 +80,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo e(url('/admin/absen')); ?>">Absen</a>
             <a class="collapse-item" href="<?php echo e(url('/admin/absen/data-kehadiran')); ?>">Data Kehadiran</a>
+            <a class="collapse-item" href="<?php echo e(url('/admin/absen/cetak')); ?>">Laporan</a>
           </div>
         </div>
       </li>
@@ -93,7 +94,6 @@
         <div id="cuti" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo e(url('/admin/cuti')); ?>">Data Cuti Karyawan</a>
-            <a class="collapse-item" href="<?php echo e(url('/admin/cuti/reset/jatah_cuti')); ?>">Reset Jatah Cuti Karyawan</a>
           </div>
         </div>
       </li>
