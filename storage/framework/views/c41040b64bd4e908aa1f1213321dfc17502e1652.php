@@ -134,9 +134,8 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
       });
-      
-      $("#kategori").on('change', function(){
-        const kategori = $("#kategori").val();
+      $("#kategori_name").on('change', function(){
+        const kategori = $("#kategori_name").val();
         $.ajax({
           type: 'get',
           dataType: 'html',
@@ -148,18 +147,19 @@
         });
       });
       
-      $("#kategori").click(function(){
-        const kategori = $("#kategori").val();
-        $.ajax({
-          type: 'get',
-          dataType: 'html',
-          url: '<?php echo e(url('/kategori')); ?>',
-          data: 'kategori_id=' + kategori,
-          success:function(response){
-            $("#barang").html(response);
-          }
-        });
-      });
+      // $("#kategori").click(function(){
+      //   const kategori = $("#kategori").val();
+      //   $.ajax({
+      //     type: 'get',
+      //     dataType: 'html',
+      //     url: '<?php echo e(url('/kategori')); ?>',
+      //     data: 'kategori_id=' + kategori,
+      //     success:function(response){
+      //       console.log(response);
+      //       $("#barang").html(response);
+      //     }
+      //   });
+      // });
     });
   </script>
 
